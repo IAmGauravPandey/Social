@@ -1,0 +1,38 @@
+{% extends "accounts/base.html" %}
+
+{% block head %}
+<title>Profile</title>
+{% endblock head %}
+
+{% block content %}
+<div class="container">
+    <h1>Profile</h1>
+    <hr><hr>
+    <h3>
+        <p>
+        {{ user.uerprofile }}
+    <br>
+      Email:  {{  user.email }}
+        <br>
+       FirstName: {{ user.first_name }}
+        <br>
+      LastName:  {{ user.last_name }}
+        <br>
+        Description: {{ user.userprofile.description }}
+        <br>
+        Phone: {{ user.userprofile.phone }}
+        <br>
+        website: <a href="{{ user.userprofile.website }}">Website</a>
+        <br>
+        {% if user.userprofile.image %}
+    <img src="{{ user.userprofile.image.url }}" width="240">
+    {% endif %}
+    </p>
+    </h3>
+    
+    <a class="btn btn-default" href="/profile/edit"><span class="glyphicon glyphicon-pencil"></span></a>
+
+
+</div>
+
+{% endblock content %}

@@ -1,0 +1,103 @@
+{% extends "accounts/base.html" %}
+{% block head %}
+<title>Login</title>
+{% endblock head %}
+{% block content %}
+<style type="text/css">
+	.login-form {
+		width: 340px;
+    	margin: 30px auto;
+	}
+    .login-form form {
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .login-form .hint-text {
+		color: #777;
+		padding-bottom: 15px;
+		text-align: center;
+    }
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .login-btn {
+        font-size: 15px;
+        font-weight: bold;
+    }
+    .or-seperator {
+        margin: 20px 0 10px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+    .or-seperator i {
+        padding: 0 10px;
+        background: #f7f7f7;
+        position: relative;
+        top: -11px;
+        z-index: 1;
+    }
+    .social-btn .btn {
+        margin: 10px 0;
+        font-size: 15px;
+        text-align: left;
+        line-height: 24px;
+    }
+	.social-btn .btn i {
+		float: left;
+		margin: 4px 15px  0 5px;
+        min-width: 15px;
+	}
+	.input-group-addon .fa{
+		font-size: 18px;
+	}
+</style>
+
+<div class="login-form">
+    
+    <form  method="post">
+            {% csrf_token %}
+        <h2 class="text-center">Sign in</h2>
+        <div class="text-center social-btn">
+            <a href="#" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
+            <a href="#" class="btn btn-info btn-block"><i class="fa fa-twitter"></i> Sign in with <b>Twitter</b></a>
+			<a href="#" class="btn btn-danger btn-block"><i class="fa fa-google"></i> Sign in with <b>Google</b></a>
+        </div>
+		<div class="or-seperator"><i>or</i></div>
+        <div class="form-group">
+        	<div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <label for="id_username"></label> <input class="form-control" type="text" name="username" placeholder="Username"required id="id_username" />          </div>
+        </div>
+		<div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <label for="id_password"></label> <input class="form-control" type="password" name="password" required id="id_password" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
+        </div>
+        {{ form.errors }}
+        <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="/password_reset" class="pull-right text-success">Forgot Password?</a>
+        </div>
+
+    </form>
+    <div class="hint-text small">Don't have an account? <a href="/register" class="text-success">Register Now!</a></div>
+      <h2 class='jumbotron text-center '>Hello, {{ name }}</h2>
+</div>
+<div class="login-form">
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+  <button type="submit" class="btn btn-success btn-block login-btn">Sign in</button>
+</form>
+</div>
+{% endblock content %}
