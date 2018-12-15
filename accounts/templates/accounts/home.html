@@ -18,7 +18,7 @@
 {% for post in posts%}
     {% if post.user == user or post.user in friends %}
     <h3>{{ post.title }}</h3>
-    
+
     {% if post.image and ".mp4" not in post.image.url%}
     <img src="{{ post.image.url }}" width="200">
     {% endif%}
@@ -27,8 +27,8 @@
         <source src="{{ post.image.url }}" type="video/mp4"></source>
     </video>
     {% endif %}
-    
-    
+
+
     <p>posted by:<b>{{ post.user }} on </b>{{ post.date }}</p>
     {% endif %}
 {% endfor %}
@@ -39,13 +39,13 @@
     <hr>
 {% for user in users %}
     {% if user not in friends %}
-   <p><a href="{% url 'profile_with_pk' pk=user.pk %}">{{ user }}</a> </p> 
+   <p><a href="{% url 'profile_with_pk' pk=user.pk %}">{{ user }}</a> </p>
     {% if user.userprofile.image %}
     <img src="{{ user.userprofile.image.url }}" width="200">
     {% else %}
-    
+
     <img src=""alt="Upload your image" width="200">
-   
+
     {% endif %}
     <a href="{% url 'change_friends' operation='add' pk=user.pk %}">
             <button type="button" class="btn btn-success">Add Friend</button>
@@ -64,12 +64,13 @@
             <a href="{% url 'change_friends' operation='remove' pk=friend.pk %}">
             <button type="button" class="btn btn-danger">Remove Friend</button>
             </a>
+            
         {% endfor %}
 </div>
 {% else %}
 <h2>Please login view contents</h2>
 {% endif %}
-    
+
    </div>
-  
+
 {% endblock content %}

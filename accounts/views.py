@@ -33,15 +33,20 @@ def home(request):
         else:
             redirect('/')
     else:
-        form=PostForm()
-        posts=Post.objects.all().order_by('-date')
-        users=User.objects.exclude(id=request.user.id)
-        friend = Friend.objects.get(current_user=request.user)
-        friends = friend.users.all()
-        args={'form':form,'posts':posts,'users':users,'friends': friends}
-        return render(request,'accounts/home.html',args)
+        if request.user.is_authenticated:
+            Friend.make_friend(request.user, request.user)
+            form=PostForm()
+            posts=Post.objects.all().order_by('-date')
+            users=User.objects.exclude(id=request.user.id)
+            friend = Friend.objects.get(current_user=request.user)
+            friends = friend.users.all()
+            Friend.lose_friend(request.user, request.user)
+            args={'form':form,'posts':posts,'users':users,'friends': friends}
+            return render(request,'accounts/home.html',args)
+        else:
+            return render(request,'accounts/home.html')
 
-        
+
 @login_required
 def logout(request):
     auth.logout(request)
@@ -103,5 +108,3 @@ def change_friends(request, operation, pk):
     elif operation == 'remove':
         Friend.lose_friend(request.user, friend)
     return redirect('/')
-
-
